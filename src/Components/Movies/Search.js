@@ -38,7 +38,7 @@ export default Search
 
 const styles = StyleSheet.create({
     searchbar: {
-        backgroundColor: "#000",
+        backgroundColor: "transparent",
         marginVertical: 10,
         paddingHorizontal: 20,
         marginHorizontal: 10,

@@ -1,10 +1,20 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import React, { useContext } from 'react'
+import { Button, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { LoginStoreContext } from '../Store/LoginStore'
 
 const Home = () => {
+    const loginStore = useContext(LoginStoreContext)
+
+
     return (
         <View>
-            <Text>home</Text>
+            <StatusBar backgroundColor="#3498db" />
+            <Text>
+                <Button title="logout" onPress={()=>{
+                    loginStore.logOut()
+                }} />
+            </Text>
         </View>
     )
 }

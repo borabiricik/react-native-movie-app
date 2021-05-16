@@ -3,14 +3,14 @@ import { observer } from 'mobx-react'
 import React, { useState } from 'react'
 import { useContext } from 'react'
 import { useEffect } from 'react'
-import { FlatList, StyleSheet, Text, View } from 'react-native'
+import { FlatList, StatusBar, StyleSheet, Text, View } from 'react-native'
 import MovieListItem from '../Components/Movies/MovieListItem'
 import Search from '../Components/Movies/Search'
 import { MoviesStoreContext } from '../Store/MoviesStore'
 
 
 
-const Movies = observer(() => {
+const Movies = observer(({navigation}) => {
 
     const moviesStore = useContext(MoviesStoreContext)
 
@@ -21,11 +21,13 @@ const Movies = observer(() => {
 
 
     return (
-        <View>
+        <View style={styles.moviesContainer}>
+            <StatusBar backgroundColor="black" />
             <FlatList
                 data={toJS(moviesStore.movies)}
-                renderItem={(item)=>(<MovieListItem movie={item} />)}
+                renderItem={(item)=>(<MovieListItem navigation={navigation} movie={item} />)}
                 ListHeaderComponent={Search}
+                style={styles.moviesList}
             />
         </View>
     )
@@ -33,4 +35,11 @@ const Movies = observer(() => {
 
 export default Movies
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    moviesContainer:{
+        backgroundColor:"black"
+    },
+    moviesList:{
+        backgroundColor:"black"
+    }
+})

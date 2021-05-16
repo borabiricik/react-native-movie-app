@@ -7,7 +7,7 @@ import { MoviesStoreContext } from '../../Store/MoviesStore'
 const width = Dimensions.get("screen").width
 const height = Dimensions.get("screen").height
 
-const MovieListItem = ({ movie: { item, index } }) => {
+const MovieListItem = ({ movie: { item, index }, navigation }) => {
     const moviesStore = useContext(MoviesStoreContext)
 
     const [genres, setgenres] = useState(toJS(moviesStore.genres))
@@ -16,8 +16,12 @@ const MovieListItem = ({ movie: { item, index } }) => {
         return item.genre_ids.find(id => genre.id == id)
     })
 
+    const renderMovieDetails = () => {
+        navigation.navigate("Details",{item})
+    }
+
     return (
-        <TouchableOpacity style={[styles.movieItemContainer, { backgroundColor: index % 2 === 0 ? "#141414" : "black" }]}>
+        <TouchableOpacity onPress={renderMovieDetails} style={[styles.movieItemContainer, { backgroundColor: index % 2 === 0 ? "#141414" : "black" }]}>
             <Image
                 source={{ uri: `${API_ENDPOINT_PHOTO}${item.backdrop_path}` }}
                 style={styles.movieImage}
@@ -59,7 +63,8 @@ const styles = StyleSheet.create({
     },
     movieTitle: {
         width: "100%",
-        color: "white"
+        color: "white",
+        fontFamily:"Lato-Bold"
     },
     movieInfoSpacer: {
         justifyContent: "space-between",
@@ -74,7 +79,9 @@ const styles = StyleSheet.create({
         borderColor: "#7f8c8d",
         color: "white"
     },
-    voteAverage:{
-        color:"white"
+    voteAverage: {
+        color: "white",
+        fontFamily:"Lato-Light",
+        paddingVertical:5
     }
 })

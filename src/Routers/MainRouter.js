@@ -1,19 +1,25 @@
 import React from 'react'
-import { StyleSheet } from 'react-native'
+import { BackHandler, StyleSheet } from 'react-native'
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs"
 import Home from '../Screens/Home';
 import Icon from "react-native-vector-icons/Ionicons"
 import Movies from '../Screens/Movies';
 import Genres from "../Screens/Genres"
+import DetailsModalRouter from './DetailsModalRouter';
 
 
 
 const MainTabStack = createMaterialBottomTabNavigator()
 
 const MainRouter = () => {
+
+
+
     return (
         <MainTabStack.Navigator initialRouteName="Home" shifting={true} screenOptions={{
+            
         }} >
+
             <MainTabStack.Screen name="Home" component={Home} options={{
                 tabBarColor: "#3498db",
                 tabBarIcon: ({ color }) => (
@@ -34,6 +40,7 @@ const MainRouter = () => {
                     <Icon name="list-outline" size={24} color={color} />
                 )
             }} />
+
         </MainTabStack.Navigator>
     )
 }

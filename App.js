@@ -1,20 +1,23 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
 } from 'react-native';
 import 'react-native-gesture-handler';
-import MainRouter from './src/Routers.js/MainRouter';
-
+import DetailsModalRouter from './src/Routers/DetailsModalRouter';
+import { LoginStoreContext } from './src/Store/LoginStore';
 
 const App = () => {
 
+  const loginStore = useContext(LoginStoreContext)
+
+  loginStore.checkLoggedIn()
 
   return (
     <SafeAreaView style={styles.container}>
       <NavigationContainer>
-        <MainRouter />
+        <DetailsModalRouter />
       </NavigationContainer>
     </SafeAreaView>
   );
