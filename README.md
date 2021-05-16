@@ -12,9 +12,9 @@
 - Node.js (NPM)
 
 ###View Project
-1-) Clone/Fork project
-2-) Open command prompt and type `npm install` in main project folder.
-3-) After all plugins installed, start your emulator or connect your device to your USB port.
-4-) If you have IOS device, type command prompt `react-native run-ios`
-5-) If you have Android device, type command prompt `react-native run-android` (Make sure your USB Debugging setting is on)
-6-) Enjoy your testing app :)
+-1-) Clone/Fork project
+-2-) Open command prompt and type `npm install` in main project folder.
+-3-) After all plugins installed, start your emulator or connect your device to your USB port.
+-4-) If you have IOS device, type command prompt `react-native run-ios`
+-5-) If you have Android device, type command prompt `react-native run-android` (Make sure your USB Debugging setting is on)
+-6-) Enjoy your testing app :)
