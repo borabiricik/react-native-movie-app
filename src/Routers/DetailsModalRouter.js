@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useContext } from 'react'
+import { StyleSheet } from 'react-native'
 import { createStackNavigator } from "@react-navigation/stack"
 import Details from '../Screens/Details';
 import MainRouter from './MainRouter';

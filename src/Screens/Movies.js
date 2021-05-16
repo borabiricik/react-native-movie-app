@@ -1,6 +1,6 @@
 import { toJS } from 'mobx'
 import { observer } from 'mobx-react'
-import React, { useState } from 'react'
+import React from 'react'
 import { useContext } from 'react'
 import { useEffect } from 'react'
 import { FlatList, StatusBar, StyleSheet, Text, View } from 'react-native'

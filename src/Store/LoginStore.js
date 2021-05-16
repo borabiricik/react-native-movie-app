@@ -1,4 +1,4 @@
-import { action, computed, get, makeObservable, observable, runInAction } from "mobx"
+import { action, makeObservable, observable, runInAction } from "mobx"
 import { createContext } from "react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios from "axios"

@@ -1,11 +1,9 @@
-import axios from 'axios';
-import React, { useContext, useState } from 'react'
-import { Button, KeyboardAvoidingView, StatusBar, StyleSheet, Text, TextInput, View, } from 'react-native'
-import LoginForm from '../Components/Login/LoginForm';
-import { API_KEY } from '../Constants/API';
-import { LoginStoreContext } from '../Store/LoginStore';
 
-const Login = ({navigation}) => {
+import React from 'react'
+import {  KeyboardAvoidingView, StatusBar, StyleSheet, Text,  View, } from 'react-native'
+import LoginForm from '../Components/Login/LoginForm';
+
+const Login = () => {
 
 
 

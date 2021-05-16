@@ -1,11 +1,10 @@
 import React from 'react'
-import { BackHandler, StyleSheet } from 'react-native'
+import { StyleSheet } from 'react-native'
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs"
 import Home from '../Screens/Home';
 import Icon from "react-native-vector-icons/Ionicons"
 import Movies from '../Screens/Movies';
 import Genres from "../Screens/Genres"
-import DetailsModalRouter from './DetailsModalRouter';
 
 
 
