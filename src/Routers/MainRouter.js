@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import { StyleSheet } from 'react-native'
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs"
 import Home from '../Screens/Home';
 import Icon from "react-native-vector-icons/Ionicons"
 import Movies from '../Screens/Movies';
 import Genres from "../Screens/Genres"
+import { MoviesStoreContext } from '../Store/MoviesStore';
 
 
 
@@ -12,7 +13,11 @@ const MainTabStack = createMaterialBottomTabNavigator()
 
 const MainRouter = () => {
 
+    const moviesStore = useContext(MoviesStoreContext)
 
+    useEffect(()=>{
+        moviesStore.getMoviesFromAPI()
+    },[])
 
     return (
         <MainTabStack.Navigator initialRouteName="Home" shifting={true} screenOptions={{

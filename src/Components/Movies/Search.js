@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { useContext } from 'react'
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { StyleSheet, TextInput, View } from 'react-native'
 import { MoviesStoreContext } from '../../Store/MoviesStore'
 
 const Search = () => {

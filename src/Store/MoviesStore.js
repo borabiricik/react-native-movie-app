@@ -1,7 +1,7 @@
 import axios from "axios";
 import { action, makeObservable, observable, runInAction } from "mobx";
 import { createContext } from "react";
-import { API_ENDPOINT_MOVIES, API_KEY, API_LANGUAGE, API_ENDPOINT_SEARCH_MOVIES, API_ENDPOINT_GENRES, API_ENDPOINT_SIMILAR } from "../Constants/API"
+import { API_ENDPOINT_MOVIES, API_KEY, API_LANGUAGE, API_ENDPOINT_SEARCH_MOVIES, API_ENDPOINT_GENRES, API_ENDPOINT_SIMILAR, API_ENDPOINT_MOVIES_FOR_GENRE } from "../Constants/API"
 
 
 class MoviesStore {
@@ -9,17 +9,20 @@ class MoviesStore {
     movies = []
     genres = []
     similarMovies = []
+    moviesForGenre = []
 
 
     constructor() {
         makeObservable(this, {
             movies: observable,
             genres: observable,
-            similarMovies:observable,
+            similarMovies: observable,
             getMoviesFromAPI: action,
             getSearchedItem: action,
             getGenres: action,
-            getSimilarMovies: action
+            getSimilarMovies: action,
+            moviesForGenre: observable,
+            getMoviesForGenre: action
         })
     }
 
@@ -52,6 +55,16 @@ class MoviesStore {
         axios.get(`${API_ENDPOINT_SIMILAR}${movie_id}/similar?${API_KEY}&page=1`)
             .then(response => runInAction(() => {
                 this.similarMovies = response.data.results
+            }))
+    }
+
+    getMoviesForGenre = (genre_id) => {
+        runInAction(()=>{
+            this.moviesForGenre =[]
+        })
+        axios.get(`${API_ENDPOINT_MOVIES_FOR_GENRE}${API_KEY}&with_genres=${genre_id}`)
+            .then(response => runInAction(()=>{
+                this.moviesForGenre = response.data.results
             }))
     }
 

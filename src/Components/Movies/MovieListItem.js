@@ -7,7 +7,7 @@ import { MoviesStoreContext } from '../../Store/MoviesStore'
 const width = Dimensions.get("screen").width
 const height = Dimensions.get("screen").height
 
-const MovieListItem = ({ movie: { item, index }, navigation }) => {
+const MovieListItem = ({ movie: { item, index }, navigation, type }) => {
     const moviesStore = useContext(MoviesStoreContext)
 
     const [genres, setgenres] = useState(toJS(moviesStore.genres))
@@ -17,7 +17,7 @@ const MovieListItem = ({ movie: { item, index }, navigation }) => {
     })
 
     const renderMovieDetails = () => {
-        navigation.navigate("Details",{item})
+        navigation.navigate("Details", { item })
     }
 
     return (
@@ -31,12 +31,16 @@ const MovieListItem = ({ movie: { item, index }, navigation }) => {
             <View style={styles.movieInfoContainer}>
                 <Text style={styles.movieTitle} numberOfLines={1}>{item.title.length < 35 ? item.title : `${item.title.substring(0, 35)}...`}</Text>
                 <Text style={styles.voteAverage}>IMDB: {item.vote_average}</Text>
-                <Text style={styles.genreText}>
-                    {/* {
-                        filteredGenres.name ? filteredGenres.name : null
-                    } */}
-                    Category
-                </Text>
+                {
+                    type == "genreMovie" ? null : (
+                        <Text style={styles.genreText}>
+                            {
+                                filteredGenres.name ? filteredGenres.name : null
+                            }
+
+                        </Text>
+                    )
+                }
             </View>
 
 
@@ -64,7 +68,7 @@ const styles = StyleSheet.create({
     movieTitle: {
         width: "100%",
         color: "white",
-        fontFamily:"Lato-Bold"
+        fontFamily: "Lato-Bold"
     },
     movieInfoSpacer: {
         justifyContent: "space-between",
@@ -81,7 +85,7 @@ const styles = StyleSheet.create({
     },
     voteAverage: {
         color: "white",
-        fontFamily:"Lato-Light",
-        paddingVertical:5
+        fontFamily: "Lato-Light",
+        paddingVertical: 5
     }
 })
