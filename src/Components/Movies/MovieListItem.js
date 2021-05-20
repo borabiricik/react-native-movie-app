@@ -1,23 +1,31 @@
 import { toJS } from 'mobx'
 import React, { useContext, useEffect, useState } from 'react'
 import { Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { API_ENDPOINT_PHOTO } from '../../Constants/API'
 import { MoviesStoreContext } from '../../Store/MoviesStore'
 
 const width = Dimensions.get("screen").width
 const height = Dimensions.get("screen").height
 
-const MovieListItem = ({ movie: { item, index }, navigation, type }) => {
+const MovieListItem = ({ movie: { item, index }, navigation, listType, type }) => {
     const moviesStore = useContext(MoviesStoreContext)
 
     const [genres, setgenres] = useState(toJS(moviesStore.genres))
 
-    var filteredGenres = genres.find(genre => {
-        return item.genre_ids.find(id => genre.id == id)
-    })
+    // var filteredGenres = genres.find(genre => {
+    //     return item.genre_ids.find(id => genre.id == id)
+    // })
+    
+    const item_convert_to_js = toJS(item)
+
+    const removeLikedMovie = () => {
+
+    }
+
 
     const renderMovieDetails = () => {
-        navigation.navigate("Details", { item })
+        navigation.navigate("Details", { item})
     }
 
     return (
@@ -32,16 +40,28 @@ const MovieListItem = ({ movie: { item, index }, navigation, type }) => {
                 <Text style={styles.movieTitle} numberOfLines={1}>{item.title.length < 35 ? item.title : `${item.title.substring(0, 35)}...`}</Text>
                 <Text style={styles.voteAverage}>IMDB: {item.vote_average}</Text>
                 {
-                    type == "genreMovie" ? null : (
+                    listType == "genreMovie" ?
                         <Text style={styles.genreText}>
-                            {
-                                filteredGenres.name ? filteredGenres.name : null
-                            }
+                            Category
 
                         </Text>
-                    )
+                        : (
+                            <Text style={styles.genreText}>
+                                {/* {
+                                    filteredGenres.name ? filteredGenres.name : null
+                                } */}
+                                Category
+
+                            </Text>
+                        )
                 }
             </View>
+
+            <TouchableOpacity onPress={removeLikedMovie}>
+                {
+                    type == "LikedMovies" ? <Icon name="trash-outline" style={styles.removeIcon} size={24} /> : null
+                }
+            </TouchableOpacity>
 
 
         </TouchableOpacity>
@@ -87,5 +107,9 @@ const styles = StyleSheet.create({
         color: "white",
         fontFamily: "Lato-Light",
         paddingVertical: 5
+    },
+    removeIcon: {
+        color: "red",
+        zIndex: 100
     }
 })

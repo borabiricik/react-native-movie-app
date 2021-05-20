@@ -4,6 +4,7 @@ import React from 'react'
 import { useContext } from 'react'
 import { useEffect } from 'react'
 import { FlatList, StatusBar, StyleSheet, Text, View } from 'react-native'
+import MovieList from '../Components/Movies/MovieList'
 import MovieListItem from '../Components/Movies/MovieListItem'
 import Search from '../Components/Movies/Search'
 import { MoviesStoreContext } from '../Store/MoviesStore'
@@ -23,12 +24,7 @@ const Movies = observer(({navigation}) => {
     return (
         <View style={styles.moviesContainer}>
             <StatusBar backgroundColor="black" />
-            <FlatList
-                data={toJS(moviesStore.movies)}
-                renderItem={(item)=>(<MovieListItem navigation={navigation} movie={item} />)}
-                ListHeaderComponent={Search}
-                style={styles.moviesList}
-            />
+            <MovieList type={"MoviesList"} data={toJS(moviesStore.movies)} navigation={navigation} />
         </View>
     )
 })

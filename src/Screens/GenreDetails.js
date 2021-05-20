@@ -23,7 +23,7 @@ const GenreDetails = ({ route: { params: { item } }, navigation }) => {
         <View>
             <FlatList
                 data={toJS(moviesStore.moviesForGenre)}
-                renderItem={(item) => (<MovieListItem navigation={navigation} movie={item} type={"genreMovie"} />)}
+                renderItem={(item) => (<MovieListItem navigation={navigation} movie={item} listType="genreMovie" />)}
             />
         </View>
     )

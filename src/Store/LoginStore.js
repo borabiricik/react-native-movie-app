@@ -1,4 +1,4 @@
-import { action, makeObservable, observable, runInAction } from "mobx"
+import { action, makeObservable, observable, runInAction, toJS } from "mobx"
 import { createContext } from "react"
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import axios from "axios"
@@ -9,13 +9,17 @@ class LoginStore {
 
     token = null
     isLoggedIn = null
+    username = null
 
     constructor() {
         makeObservable(this, {
             token: observable,
+            username: observable,
             getToken: action,
             loginWithToken: action,
-            isLoggedIn: observable
+            isLoggedIn: observable,
+            storeUsernameInfo: action,
+            getUsername: action
 
         })
     }
@@ -46,16 +50,30 @@ class LoginStore {
     loginWithToken = async (username, password) => {
         const data = axios.post(`${API_ENDPOINT_LOGIN_WITH_TOKEN}${API_KEY}&username=${username}&password=${password}&request_token=${await this.exportToken()}`)
             .then(response => this.checkLoggedIn())
-            .catch(e=>alert("Error while login"))
+            .catch(e => alert("Error while login"))
 
-        
+        this.storeUsernameInfo(username)
+    }
+
+    storeUsernameInfo = async (username) => {
+        await AsyncStorage.setItem("@username", username)
+        runInAction(()=>{
+            this.username = username
+        })
+    }
+
+    getUsername = () => {
+        return AsyncStorage.getItem("@username")
     }
 
     checkLoggedIn = async () => {
         if (await AsyncStorage.getItem("@token")) {
-            runInAction(() => {
-                this.isLoggedIn = true
+            runInAction(async () => {
+                this.isLoggedIn = true,
+                this.username= await AsyncStorage.getItem("@username")
             })
+            
+            
         }
         else {
             runInAction(() => {

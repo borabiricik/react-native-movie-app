@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs"
 import Home from '../Screens/Home';
@@ -6,6 +6,11 @@ import Icon from "react-native-vector-icons/Ionicons"
 import Movies from '../Screens/Movies';
 import Genres from "../Screens/Genres"
 import { MoviesStoreContext } from '../Store/MoviesStore';
+import LikedMovies from '../Screens/LikedMovies';
+import { toJS } from 'mobx';
+import { LikeStoreContext } from '../Store/LikeStore';
+import { observer } from 'mobx-react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -13,10 +18,8 @@ const MainTabStack = createMaterialBottomTabNavigator()
 
 const MainRouter = () => {
 
-    const moviesStore = useContext(MoviesStoreContext)
 
     useEffect(()=>{
-        moviesStore.getMoviesFromAPI()
     },[])
 
     return (
@@ -45,11 +48,19 @@ const MainRouter = () => {
                 )
             }} />
 
+            <MainTabStack.Screen name="LikedMovies" component={LikedMovies} options={{
+                tabBarColor: "black",
+                tabBarLabel:"Liked Movies",
+                tabBarIcon: ({ color }) => (
+                    <Icon name="heart-outline" size={24} color={color} />
+                )
+            }} />
+
         </MainTabStack.Navigator>
     )
 }
 
-export default MainRouter
+export default observer(MainRouter)
 
 const styles = StyleSheet.create({
 

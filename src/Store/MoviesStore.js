@@ -1,7 +1,7 @@
 import axios from "axios";
 import { action, makeObservable, observable, runInAction } from "mobx";
 import { createContext } from "react";
-import { API_ENDPOINT_MOVIES, API_KEY, API_LANGUAGE, API_ENDPOINT_SEARCH_MOVIES, API_ENDPOINT_GENRES, API_ENDPOINT_SIMILAR, API_ENDPOINT_MOVIES_FOR_GENRE } from "../Constants/API"
+import { API_ENDPOINT_MOVIES, API_KEY, API_LANGUAGE, API_ENDPOINT_SEARCH_MOVIES, API_ENDPOINT_GENRES, API_ENDPOINT_SIMILAR, API_ENDPOINT_MOVIES_FOR_GENRE, API_ENDPOINT_MOVIE_DETAILS_BY_ID } from "../Constants/API"
 
 
 class MoviesStore {
@@ -59,14 +59,16 @@ class MoviesStore {
     }
 
     getMoviesForGenre = (genre_id) => {
-        runInAction(()=>{
-            this.moviesForGenre =[]
+        runInAction(() => {
+            this.moviesForGenre = []
         })
         axios.get(`${API_ENDPOINT_MOVIES_FOR_GENRE}${API_KEY}&with_genres=${genre_id}`)
-            .then(response => runInAction(()=>{
+            .then(response => runInAction(() => {
                 this.moviesForGenre = response.data.results
             }))
     }
+
+    
 
 
 
