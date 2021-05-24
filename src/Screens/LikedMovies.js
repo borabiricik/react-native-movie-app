@@ -15,15 +15,14 @@ const LikedMovies = ({ navigation }) => {
 
     useEffect(async () => {
             await likeStore.setupMovies()
-            setlikedMovies(likeStore.likedMovies)
-            console.log(toJS(likeStore.getLikedMovies()));
+            setlikedMovies(likeStore.likedMovies)        
         
 
     }, [])
 
     return (
         
-            isFocused ? <MovieList data={likedMovies} navigation={navigation} type={"LikedMovies"} /> : null
+            isFocused ? <MovieList data={likedMovies} navigation={navigation} type={"LikedMovieDetails"} deleteType={"likedMovies"} /> : null
         
         
 

@@ -8,7 +8,7 @@ import { API_ENDPOINT_PHOTO } from '../Constants/API'
 import { LikeStoreContext } from '../Store/LikeStore'
 import { MoviesStoreContext } from '../Store/MoviesStore'
 
-const Details = ({ route: { params: { item,movie } }, navigation }) => {
+const LikedMovieDetails = ({ route: { params: { item } }, navigation }) => {
 
     const moviesStore = useContext(MoviesStoreContext)
     const likeStore = useContext(LikeStoreContext)
@@ -18,7 +18,6 @@ const Details = ({ route: { params: { item,movie } }, navigation }) => {
 
     useEffect(async () => {
         await moviesStore.getGenres()
-
         if (likeStore.likedMovies.find(movie => movie.id == item.id)) {
             seticonColor("red")
         }
@@ -26,14 +25,18 @@ const Details = ({ route: { params: { item,movie } }, navigation }) => {
 
 
     var filteredGenres = genres.find(genre => {
-        return item.genre_ids.find(id => genre.id == id)
+        return toJS(item).genres.find(id => genre.id == id)
     })
 
-    const likeButtonPress = () => {
+
+
+    const likeButtonPress = async () => {
+        await likeStore.likeMovie(item.id)
         seticonColor("red")
-        likeStore.likeMovie(item.id)
 
     }
+
+
 
     return (
         <View style={styles.detailsContainer}>
@@ -53,7 +56,7 @@ const Details = ({ route: { params: { item,movie } }, navigation }) => {
 
             <View>
                 <TouchableOpacity style={styles.likeButton} onPress={likeButtonPress}>
-                    <Icon name={"heart-outline"} size={24} color={`${iconColor}`} />
+                    <Icon name={"heart-outline"} size={24} color={iconColor} />
                     <Text style={styles.likeText}>
                         Like
                     </Text>
@@ -62,7 +65,15 @@ const Details = ({ route: { params: { item,movie } }, navigation }) => {
 
             <View style={styles.movieInfoContainer}>
                 <Text style={styles.movieText}>IMBD: {item.vote_average}</Text>
-                <Text style={styles.movieText}>Genre: {filteredGenres.name ? filteredGenres.name : null}</Text>
+                <View style={styles.genreContainer}>
+                    {
+                        toJS(item).genres.map((genre) => {
+                            return (
+                                <Text key={genre.id} style={[styles.movieText, styles.genreText]}>{genre.name}</Text>
+                            )
+                        })
+                    }
+                </View>
             </View>
 
             <View style={styles.similarMoviesContainer}>
@@ -74,7 +85,7 @@ const Details = ({ route: { params: { item,movie } }, navigation }) => {
     )
 }
 
-export default observer(Details)
+export default observer(LikedMovieDetails)
 
 const styles = StyleSheet.create({
     detailsContainer: {
@@ -87,7 +98,7 @@ const styles = StyleSheet.create({
     },
     detailsMoviePoster: {
         width: "100%",
-        height: 300
+        height: 200
     },
     movieInfoContainer: {
         paddingTop: 20
@@ -121,6 +132,21 @@ const styles = StyleSheet.create({
     likeText: {
         marginLeft: 10,
         fontFamily: "Lato-Black",
+    },
+    genreText: {
+        padding: 5,
+        borderWidth: 1,
+        borderColor: "white",
+        textAlign: "center",
+        marginBottom: 5,
+        width: "30%",
+        borderRadius: 5
+    },
+    genreContainer: {
+        marginTop: 5,
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "space-evenly"
     }
 
 })

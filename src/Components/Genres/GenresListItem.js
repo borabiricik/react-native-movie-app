@@ -21,13 +21,13 @@ export default GenresListItem
 
 const styles = StyleSheet.create({
     genresItemContainer: {
-        padding: 10
+        paddingHorizontal:30,
     },
     genreTitle: {
         textAlign: "center",
         color: "white",
         borderBottomColor: "#5f5f5f",
         borderBottomWidth: 1,
-        padding: 10
+        paddingVertical:10
     }
 })

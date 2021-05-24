@@ -1,25 +1,34 @@
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import React, { useContext, useEffect, useState } from 'react'
-import { Dimensions, FlatList, Image, ScrollView, StyleSheet, Text, TouchableHighlight, TouchableOpacity, View } from 'react-native'
+import React, { useContext, useEffect } from 'react'
+import { Dimensions, FlatList, Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 import { API_ENDPOINT_PHOTO } from '../../Constants/API'
 import { MoviesStoreContext } from '../../Store/MoviesStore';
 
-const SimilarMovies = ({ movie }) => {
+const SimilarMovies = ({ movie, navigation }) => {
 
     const moviesStore = useContext(MoviesStoreContext)
 
-
+    const item = movie
 
     useEffect(() => {
         moviesStore.getSimilarMovies(movie.id)
 
     }, [])
 
+    const onPressSimilarMovie = (item) => {
+        console.log(item)
+        navigation.push("Details", { item })
+
+        // console.log(toJS(moviesStore.similarMovies));
+
+        // navigation.replace("Details", { item })
+    }
+
 
 
     const renderItem = ({ item }) => (
-        <TouchableOpacity style={styles.moviePosterContainer}>
+        <TouchableOpacity style={styles.moviePosterContainer} onPress={() => onPressSimilarMovie(item)}>
             <Image
                 source={{ uri: `${API_ENDPOINT_PHOTO}${item.poster_path}` }}
                 style={styles.moviePoster}
@@ -53,17 +62,17 @@ const styles = StyleSheet.create({
         color: "white",
         padding: 10
     },
-    similarMoviesList:{
-        height:Dimensions.get("screen").height/3.1
+    similarMoviesList: {
+        height: Dimensions.get("screen").height / 3.1
     },
     moviePoster: {
-        width:"100%",
+        width: "100%",
         height: 200,
-        borderRadius:10
+        borderRadius: 10
     },
     moviePosterContainer:
     {
-        padding:5,
+        padding: 5,
         flex: 1,
     }
 })

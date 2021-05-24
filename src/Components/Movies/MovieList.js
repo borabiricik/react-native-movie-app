@@ -7,7 +7,7 @@ import { MoviesStoreContext } from '../../Store/MoviesStore'
 import MovieListItem from './MovieListItem'
 import Search from './Search'
 
-const MovieList = ({ navigation, data, type }) => {
+const MovieList = ({ navigation, data, type, deleteType }) => {
     const movieStore = useContext(MoviesStoreContext)
     const likeStore = useContext(LikeStoreContext)
 
@@ -22,7 +22,7 @@ const MovieList = ({ navigation, data, type }) => {
     return (
         <FlatList
             data={data}
-            renderItem={(item) => (<MovieListItem navigation={navigation} movie={item} type={type} />)}
+            renderItem={(item) => (<MovieListItem navigation={navigation} movie={item} type={type} deleteType={deleteType} />)}
             ListHeaderComponent={Search}
             style={styles.moviesList}
         />

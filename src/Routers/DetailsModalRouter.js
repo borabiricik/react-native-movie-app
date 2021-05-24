@@ -8,6 +8,7 @@ import { LoginStoreContext } from '../Store/LoginStore';
 import { observer } from 'mobx-react';
 import GenreDetails from '../Screens/GenreDetails';
 import { color } from 'react-native-reanimated';
+import LikedMovieDetails from '../Screens/LikedMovieDetails';
 
 const rootStack = createStackNavigator();
 
@@ -26,6 +27,7 @@ const DetailsModalRouter = observer(() => {
                         <rootStack.Screen name="MainStack" component={MainRouter} />
                         <rootStack.Screen name="Details" component={Details} />
                         <rootStack.Screen name="GenreDetails" component={GenreDetails} options={{ headerShown: true,headerTintColor:"white",headerStyle:{backgroundColor:"black"}}} />
+                        <rootStack.Screen name="LikedMovieDetails" component={LikedMovieDetails} options={{ headerShown: true,headerTintColor:"white",headerStyle:{backgroundColor:"black"}}} />
                     </>
                 )
                     : <rootStack.Screen name="Login" component={Login} />

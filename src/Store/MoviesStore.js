@@ -22,7 +22,7 @@ class MoviesStore {
             getGenres: action,
             getSimilarMovies: action,
             moviesForGenre: observable,
-            getMoviesForGenre: action
+            getMoviesForGenre: action,
         })
     }
 
@@ -68,7 +68,7 @@ class MoviesStore {
             }))
     }
 
-    
+
 
 
 
